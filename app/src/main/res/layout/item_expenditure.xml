@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.chauthai.swipereveallayout.SwipeRevealLayout android:layout_height="50dp"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:mode="same_level"
+    app:dragEdge="right"
+    android:id="@+id/swipe">
+
+    <LinearLayout android:id="@+id/layout_back"
+        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="#FFCCCCCC"
+        android:gravity="center_vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <ImageButton
+            android:id="@+id/delete"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:padding="5dp"
+            android:src="@drawable/delete"
+            android:background="@android:color/transparent"
+            android:contentDescription="delete expenditure" />
+
+    </LinearLayout>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/price"
+        android:textSize="40dp"
+        android:text="Price"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:gravity="right">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/desc"
+            android:text="Description"
+            android:textSize="16dp"
+            android:gravity="right"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/submit_date"
+            android:textSize="20dp"
+            android:text="Date"
+            android:gravity="right"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+</com.chauthai.swipereveallayout.SwipeRevealLayout>

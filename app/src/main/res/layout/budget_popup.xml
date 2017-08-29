@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:layout_marginTop="60dp"
+    android:layout_marginBottom="80dp"
+    android:background="@drawable/gradient"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Daily Budget"
+            android:textAlignment="center"
+            android:textSize="25dp"/>
+
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="@drawable/button_shape"
+            android:textAlignment="center"
+            android:inputType="number"
+            android:id="@+id/daily_budget"
+            android:textSize="25dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Weekly Budget"
+            android:textAlignment="center"
+            android:textSize="25dp"/>
+
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="@drawable/button_shape"
+            android:textAlignment="center"
+            android:inputType="number"
+            android:id="@+id/weekly_budget"
+            android:textSize="25dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Monthly Budget"
+            android:textAlignment="center"
+            android:textSize="25dp"/>
+
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="@drawable/button_shape"
+            android:textAlignment="center"
+            android:inputType="number"
+            android:id="@+id/monthly_budget"
+            android:textSize="25dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
