@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:padding="5dp"
             android:src="@drawable/delete"
-            android:background="@android:color/transparent"
+            android:background="@android:color/holo_red_light"
             android:contentDescription="delete expenditure" />
 
     </LinearLayout>

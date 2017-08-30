@@ -194,8 +194,7 @@
                     android:orientation="horizontal"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:id="@+id/exp_type"
-                    android:checkedButton="@+id/others_button">
+                    android:id="@+id/exp_type">
 
                     <Space
                         android:layout_width="0dp"

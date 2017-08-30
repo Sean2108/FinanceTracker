@@ -108,6 +108,31 @@ public class DBHandlerImpl extends SQLiteOpenHelper implements DBHandler {
     }
 
     @Override
+    public int getCategoryExpCount(String type, String queryDateRange) {
+        String countQuery = "";
+        switch(queryDateRange) {
+            case "daily":
+                countQuery = "SELECT * FROM " + TABLE_FINANCES + " WHERE " + KEY_TYPE + " = \'" + type + "\' AND date(" + KEY_DATE + ") = date('now', 'localtime')";
+                break;
+            case "weekly":
+                countQuery = "SELECT * FROM " + TABLE_FINANCES + " WHERE " + KEY_TYPE + " = \'" + type + "\' AND date(" + KEY_DATE + ") >= DATE('now', 'weekday 0', '-7 days')";
+                break;
+            case "monthly":
+                countQuery = "SELECT * FROM " + TABLE_FINANCES + " WHERE " + KEY_TYPE + " = \'" + type + "\' AND strftime('%m', " + KEY_DATE + ") = strftime('%m', 'now')";
+                break;
+            default:
+                countQuery = "";
+        }
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        db.close();
+        // return count
+        return count;
+    }
+
+    @Override
     public void updateExp(Expenditure exp) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -168,7 +193,6 @@ public class DBHandlerImpl extends SQLiteOpenHelper implements DBHandler {
     @Override
     public List<Expenditure> getCategoryExp(String type) {
         List<Expenditure> expList = new ArrayList<Expenditure>();
-        // Select All Query
         String selectQuery = "SELECT * FROM " + TABLE_FINANCES + " WHERE " + KEY_TYPE + " = \'" + type + "\' ORDER BY date( " + KEY_DATE + ") DESC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -181,11 +205,11 @@ public class DBHandlerImpl extends SQLiteOpenHelper implements DBHandler {
                 exp.setType(cursor.getString(2));
                 exp.setDesc(cursor.getString(3));
                 exp.setDate(cursor.getString(4));
-                // Adding contact to list
+                // Adding exp to list
                 expList.add(exp);
             } while (cursor.moveToNext());
         }
-        // return contact list
+        // return exp list
         cursor.close();
         db.close();
         return expList;

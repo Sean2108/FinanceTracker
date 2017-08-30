@@ -24,11 +24,14 @@ import com.sean.financialtracker.Data.DBHandlerImpl;
 import com.sean.financialtracker.Data.ExpenditureSum;
 import com.sean.financialtracker.R;
 
+import java.text.NumberFormat;
+
 public class MainFragment extends Fragment {
 
     private DBHandler db;
     private static final String PREFS_NAME = "MyBudget";
     private static String[] ranges = {"daily", "weekly", "monthly"};
+    private NumberFormat formatter;
 
     public MainFragment() {
         // Required empty public constructor
@@ -42,6 +45,7 @@ public class MainFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
+        formatter = NumberFormat.getCurrencyInstance();
         int timeRange = getArguments().getInt("timeRange");
         String timeRangeStr = ranges[timeRange];
 
@@ -75,7 +79,7 @@ public class MainFragment extends Fragment {
         PieChart chart = (PieChart) rootView.findViewById(R.id.chart);
         if (remainder > 0f) {
             chart.setMaxAngle(((float)budget - remainder) / (float) budget * 360f);
-            chart.setCenterText("BALANCE: $" + remainder);
+            chart.setCenterText("BALANCE: " + formatter.format(remainder));
         }
         else {
             chart.setMaxAngle(360f);

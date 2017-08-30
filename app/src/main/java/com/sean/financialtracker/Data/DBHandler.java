@@ -21,6 +21,8 @@ public interface DBHandler {
 
     int getExpCount();
 
+    int getCategoryExpCount(String type, String queryDateRange);
+
     void updateExp(Expenditure exp);
 
     void deleteExp(Expenditure exp);

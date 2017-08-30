@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ((EditText)findViewById(R.id.exp_text)).setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
 
-        //get sum of each expenditure type from DB
         db = new DBHandlerImpl(this);
 
         SharedPreferences settings = this.getSharedPreferences(PREFS_NAME, 0);
@@ -50,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager = (ViewPager)findViewById(R.id.vpPager);
         viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
-        viewPager.setCurrentItem(0);
+        if (savedInstanceState == null) viewPager.setCurrentItem(0);
+        else viewPager.setCurrentItem(savedInstanceState.getInt("currentView"));
         Button dailyToggle = (Button) findViewById(R.id.daily_toggle);
         Button weeklyToggle = (Button) findViewById(R.id.weekly_toggle);
         Button monthlyToggle = (Button) findViewById(R.id.monthly_toggle);
@@ -84,12 +84,18 @@ public class MainActivity extends AppCompatActivity {
         try {
             float exp_cost = Float.parseFloat(((EditText) findViewById(R.id.exp_text)).getText().toString());
             String desc = ((EditText) findViewById(R.id.exp_desc)).getText().toString();
-            RadioButton selectedTypeButton = (RadioButton) findViewById(((RadioGroup) findViewById(R.id.exp_type)).getCheckedRadioButtonId());
+            int checkedButtonId = ((RadioGroup) findViewById(R.id.exp_type)).getCheckedRadioButtonId();
+            if (checkedButtonId == -1) {
+                Toast.makeText(this, "Category is not selected!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            RadioButton selectedTypeButton = (RadioButton) findViewById(checkedButtonId);
             String selectedType = selectedTypeButton.getText().toString();
 
             String date = new Timestamp(System.currentTimeMillis()).toString();
 
             if (exp_cost == 0f) Toast.makeText(this, "Expenditure cannot be zero!", Toast.LENGTH_SHORT).show();
+            else if (desc.equals("")) Toast.makeText(this, "Description cannot be empty!", Toast.LENGTH_SHORT).show();
             else if (desc.equals("")) Toast.makeText(this, "Description cannot be empty!", Toast.LENGTH_SHORT).show();
             else {
                 Expenditure exp = new Expenditure(1, exp_cost, selectedType, desc, date);
@@ -139,5 +145,11 @@ public class MainActivity extends AppCompatActivity {
         SlidingUpPanelLayout slider = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         if (slider.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) slider.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         else super.onBackPressed();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("currentView", viewPager.getCurrentItem());
+        super.onSaveInstanceState(outState);
     }
 }

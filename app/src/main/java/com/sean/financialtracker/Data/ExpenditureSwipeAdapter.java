@@ -18,6 +18,7 @@ import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.sean.financialtracker.R;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -28,11 +29,13 @@ public class ExpenditureSwipeAdapter extends ArrayAdapter<Expenditure> {
 
     private final LayoutInflater mInflater;
     private final ViewBinderHelper binderHelper;
+    NumberFormat formatter;
 
     public ExpenditureSwipeAdapter(Context context, List<Expenditure> objects) {
         super(context, R.layout.item_expenditure, objects);
         mInflater = LayoutInflater.from(context);
         binderHelper = new ViewBinderHelper();
+        formatter = NumberFormat.getCurrencyInstance();
 
         // uncomment if you want to open only one row at a time
         binderHelper.setOpenOnlyOne(true);
@@ -63,7 +66,7 @@ public class ExpenditureSwipeAdapter extends ArrayAdapter<Expenditure> {
         if (expenditure != null) {
             binderHelper.bind(holder.swipeLayout, String.valueOf(expenditure.getId()));
             holder.desc.setText(expenditure.getDesc());
-            holder.price.setText("$" + String.valueOf(expenditure.getCost()));
+            holder.price.setText(formatter.format(expenditure.getCost()));
             holder.date.setText(expenditure.getDateReadable());
         }
         holder.delete.setOnClickListener(new View.OnClickListener() {

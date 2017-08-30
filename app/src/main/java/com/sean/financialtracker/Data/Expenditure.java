@@ -3,6 +3,7 @@ package com.sean.financialtracker.Data;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by sean on 27/8/17.
@@ -51,7 +52,13 @@ public class Expenditure {
         String resultDate = "";
         try {
             Date formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(date);
-            resultDate = new SimpleDateFormat("dd MMM yyyy HH:mm").format(formattedDate);
+            Date now = new Date();
+            long millisSinceExp = now.getTime() - formattedDate.getTime();
+            long minSinceExp = TimeUnit.MILLISECONDS.toMinutes(millisSinceExp);
+            long hoursSinceExp = TimeUnit.MILLISECONDS.toHours(millisSinceExp);
+            if (minSinceExp < 60l) resultDate = String.valueOf(minSinceExp) + " minutes ago";
+            else if (hoursSinceExp < 24l) resultDate = String.valueOf(hoursSinceExp) + " hours ago";
+            else resultDate = new SimpleDateFormat("dd MMM yyyy HH:mm").format(formattedDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
