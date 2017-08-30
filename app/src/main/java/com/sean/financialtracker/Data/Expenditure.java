@@ -56,8 +56,14 @@ public class Expenditure {
             long millisSinceExp = now.getTime() - formattedDate.getTime();
             long minSinceExp = TimeUnit.MILLISECONDS.toMinutes(millisSinceExp);
             long hoursSinceExp = TimeUnit.MILLISECONDS.toHours(millisSinceExp);
-            if (minSinceExp < 60l) resultDate = String.valueOf(minSinceExp) + " minutes ago";
-            else if (hoursSinceExp < 24l) resultDate = String.valueOf(hoursSinceExp) + " hours ago";
+            if (minSinceExp < 60l) {
+                if (minSinceExp < 2) resultDate = String.valueOf(minSinceExp) + " minute ago";
+                else resultDate = String.valueOf(minSinceExp) + " minutes ago";
+            }
+            else if (hoursSinceExp < 24l) {
+                if (hoursSinceExp < 2) resultDate = String.valueOf(hoursSinceExp) + " hour ago";
+                else resultDate = String.valueOf(hoursSinceExp) + " hours ago";
+            }
             else resultDate = new SimpleDateFormat("dd MMM yyyy HH:mm").format(formattedDate);
         } catch (ParseException e) {
             e.printStackTrace();

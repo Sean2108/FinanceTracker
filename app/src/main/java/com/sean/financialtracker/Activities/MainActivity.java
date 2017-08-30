@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,8 +50,12 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager = (ViewPager)findViewById(R.id.vpPager);
         viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
-        if (savedInstanceState == null) viewPager.setCurrentItem(0);
-        else viewPager.setCurrentItem(savedInstanceState.getInt("currentView"));
+
+        Log.v("instance state", "set state" + Boolean.toString(savedInstanceState == null));
+
+        if (getIntent().getExtras() != null) viewPager.setCurrentItem(getIntent().getIntExtra("currentView", 0));
+        else viewPager.setCurrentItem(0);
+
         Button dailyToggle = (Button) findViewById(R.id.daily_toggle);
         Button weeklyToggle = (Button) findViewById(R.id.weekly_toggle);
         Button monthlyToggle = (Button) findViewById(R.id.monthly_toggle);
@@ -136,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         Intent intent = getIntent();
+        intent.putExtra("currentView", viewPager.getCurrentItem());
         finish();
         startActivity(intent);
     }
@@ -145,11 +151,5 @@ public class MainActivity extends AppCompatActivity {
         SlidingUpPanelLayout slider = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         if (slider.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) slider.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         else super.onBackPressed();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt("currentView", viewPager.getCurrentItem());
-        super.onSaveInstanceState(outState);
     }
 }
