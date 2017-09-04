@@ -8,15 +8,19 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.text.InputFilter;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.sean.financialtracker.Data.DBHandler;
 import com.sean.financialtracker.Data.DBHandlerImpl;
 import com.sean.financialtracker.Data.Expenditure;
@@ -34,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MyBudget";
     private Activity thisActivity = this;
     private ViewPager viewPager;
+    private SlidingUpPanelLayout slider;
+    private ShowcaseView showcase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +49,16 @@ public class MainActivity extends AppCompatActivity {
 
         db = new DBHandlerImpl(this);
 
+        slider = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+
         SharedPreferences settings = this.getSharedPreferences(PREFS_NAME, 0);
         if (!(settings.contains("daily_budget") || settings.contains("weekly_budget") || settings.contains("monthly_budget"))) {
-            createBudgetDialog();
+//            createBudgetDialog();
+            showHelp();
         }
 
         viewPager = (ViewPager)findViewById(R.id.vpPager);
         viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
-
-        Log.v("instance state", "set state" + Boolean.toString(savedInstanceState == null));
 
         if (getIntent().getExtras() != null) viewPager.setCurrentItem(getIntent().getIntExtra("currentView", 0));
         else viewPager.setCurrentItem(0);
@@ -81,6 +88,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        final ImageButton popupMenu = (ImageButton) findViewById(R.id.popupmenu);
+        popupMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Creating the instance of PopupMenu
+                PopupMenu popup = new PopupMenu(MainActivity.this, popupMenu);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater()
+                        .inflate(R.menu.actions, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getTitleCondensed().equals("help")) showHelp();
+                        else {
+                            Intent intent = new Intent(thisActivity, ListExpActivity.class);
+                            intent.putExtra("EXP_TYPE", item.getTitleCondensed());
+                            startActivity(intent);
+                        }
+                        return true;
+                    }
+                });
+
+                popup.show(); //showing popup menu
             }
         });
     }
@@ -148,8 +182,79 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        SlidingUpPanelLayout slider = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         if (slider.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) slider.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        else if (showcase != null) {
+            showcase.hide();
+            showcase = null;
+        }
         else super.onBackPressed();
+    }
+
+    public void showHelp() {
+        showcase = new ShowcaseView.Builder(this, true)
+                .setTarget(new ViewTarget(R.id.vpPager, this))
+                .setContentTitle("Set budgets")
+                .setContentText("Click the centre of the chart to set your daily, weekly and monthly budgets.")
+                .setStyle(R.style.CustomShowcaseTheme)
+                .hideOnTouchOutside()
+                .build();
+        showcase.setButtonText("Next");
+
+        showcase.overrideButtonClick(new View.OnClickListener() {
+            int count1 = 0;
+
+            @Override
+            public void onClick(View v) {
+                count1++;
+                switch (count1) {
+                    case 1:
+                        showcase.setTarget(new ViewTarget(R.id.toggle_parent, thisActivity));
+                        showcase.setContentTitle("Select Time Range");
+                        showcase.setContentText("Click the buttons or swipe the screen to switch between daily, weekly and monthly expense charts.");
+                        break;
+                    case 2:
+                        showcase.setTarget(new ViewTarget(R.id.dragView, thisActivity));
+                        showcase.setContentTitle("Add an expense");
+                        showcase.setContentText("Click or drag the bottom bar upwards to input a new expense.");
+                        slider.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                        break;
+                    case 3:
+                        showcase.setTarget(new ViewTarget(R.id.exp_fields, thisActivity));
+                        showcase.setContentTitle("Input the expense amount");
+                        showcase.setContentText("How much did you spend?");
+                        break;
+                    case 4:
+                        showcase.setTarget(new ViewTarget(R.id.desc_fields, thisActivity));
+                        showcase.setContentTitle("Input the expense description");
+                        showcase.setContentText("What did you pay for?");
+                        break;
+                    case 5:
+                        showcase.setTarget(new ViewTarget(R.id.category_fields, thisActivity));
+                        showcase.setContentTitle("Select the expense category");
+                        showcase.setContentText("Which category does this expense belong to?");
+                        break;
+                    case 6:
+                        showcase.setTarget(new ViewTarget(R.id.exp_type, thisActivity));
+                        showcase.setContentTitle("Categories");
+                        showcase.setContentText("From left: Food, Transport, Entertainment, Subscriptions and Others.");
+                        break;
+                    case 7:
+                        try {
+                            slider.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                            Thread.sleep(200);
+                            showcase.setTarget(new ViewTarget(R.id.vpPager, thisActivity));
+                            showcase.setContentTitle("View/delete expenses of each type");
+                            showcase.setContentText("After adding some expenses, you can click each element on the chart to view them.");
+                            showcase.setButtonText("Done");
+                            break;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    default:
+                        showcase.hide();
+                        showcase = null;
+                }
+            }
+        });
     }
 }

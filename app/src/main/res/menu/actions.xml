@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/show_help"
+        android:title="Show Help"
+        android:titleCondensed="help"/>
+
+    <group>
+        <item
+            android:id="@+id/view_food"
+            android:title="Food Expenses"
+            android:titleCondensed="Food"/>
+        <item
+            android:id="@+id/view_transport"
+            android:title="Transport Expenses"
+            android:titleCondensed="Transport"/>
+        <item
+            android:id="@+id/view_ent"
+            android:title="Entertainment Expenses"
+            android:titleCondensed="Entertainment"/>
+        <item
+            android:id="@+id/view_sub"
+            android:title="Subscription Expenses"
+            android:titleCondensed="Subscription"/>
+        <item
+            android:id="@+id/view_other"
+            android:title="Other Expenses"
+            android:titleCondensed="Others"/>
+    </group>
+</menu>

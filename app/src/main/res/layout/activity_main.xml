@@ -25,13 +25,32 @@
             android:orientation="vertical"
             android:gravity="center">
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/popupmenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/popup_menu_label"
+                    android:contentDescription="Show popup menu"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:background="@drawable/toggle_shape"
                 android:id="@+id/toggle_parent"
-                android:layout_marginTop="30dp"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp">
 
@@ -66,13 +85,6 @@
                     android:onClick="onClickChangeTab"/>
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Expenses"
-                android:textAlignment="center"
-                android:textSize="20dp"/>
 
         </LinearLayout>
 
@@ -122,6 +134,7 @@
             android:layout_marginBottom="80dp">
 
             <LinearLayout
+                android:id="@+id/exp_fields"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -148,6 +161,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/desc_fields"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -174,6 +188,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/category_fields"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
