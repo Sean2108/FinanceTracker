@@ -2,28 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/show_help"
+        android:icon="@drawable/help"
         android:title="Show Help"
         android:titleCondensed="help"/>
 
     <group>
         <item
             android:id="@+id/view_food"
+            android:icon="@drawable/food"
             android:title="Food Expenses"
             android:titleCondensed="Food"/>
         <item
             android:id="@+id/view_transport"
+            android:icon="@drawable/transport"
             android:title="Transport Expenses"
             android:titleCondensed="Transport"/>
         <item
             android:id="@+id/view_ent"
+            android:icon="@drawable/entertainment"
             android:title="Entertainment Expenses"
             android:titleCondensed="Entertainment"/>
         <item
             android:id="@+id/view_sub"
+            android:icon="@drawable/subscription"
             android:title="Subscription Expenses"
             android:titleCondensed="Subscription"/>
         <item
             android:id="@+id/view_other"
+            android:icon="@drawable/others"
             android:title="Other Expenses"
             android:titleCondensed="Others"/>
     </group>
