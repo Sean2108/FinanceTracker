@@ -26,6 +26,18 @@
         <item name="sv_backgroundColor">#bf1249d9</item>
         <item name="sv_showcaseColor">#25467A</item>
         <item name="sv_buttonText">Next</item>
+        <item name="sv_detailTextAppearance">@style/DetailText</item>
+        <item name="sv_titleTextAppearance">@style/HeaderText</item>
+    </style>
+
+    <style name="HeaderText">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="DetailText">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">15dp</item>
     </style>
 
 </resources>

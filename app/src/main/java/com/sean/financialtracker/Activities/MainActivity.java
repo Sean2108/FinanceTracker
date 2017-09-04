@@ -8,6 +8,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.MenuBuilder;
+import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
 import android.text.InputFilter;
 import android.view.MenuItem;
@@ -30,6 +32,7 @@ import com.sean.financialtracker.Utils.BudgetDialog;
 import com.sean.financialtracker.Utils.DecimalDigitsInputFilter;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 
 public class MainActivity extends AppCompatActivity {
@@ -114,6 +117,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                try {
+                    Field mFieldPopup = popup.getClass().getDeclaredField("mPopup");
+                    mFieldPopup.setAccessible(true);
+                    MenuPopupHelper mPopup = (MenuPopupHelper) mFieldPopup.get(popup);
+                    mPopup.setForceShowIcon(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 popup.show(); //showing popup menu
             }
         });
@@ -140,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
                 Expenditure exp = new Expenditure(1, exp_cost, selectedType, desc, date);
                 db.addExp(exp);
                 Toast.makeText(this, "Expenditure added", Toast.LENGTH_SHORT).show();
-                finish();
                 startActivity(getIntent());
+                finish();
             }
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Expenditure cannot be empty!", Toast.LENGTH_SHORT).show();
@@ -176,8 +187,8 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         Intent intent = getIntent();
         intent.putExtra("currentView", viewPager.getCurrentItem());
-        finish();
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -194,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         showcase = new ShowcaseView.Builder(this, true)
                 .setTarget(new ViewTarget(R.id.vpPager, this))
                 .setContentTitle("Set budgets")
-                .setContentText("Click the centre of the chart to set your daily, weekly and monthly budgets.")
+                .setContentText("Tap the centre of the chart to set your daily, weekly and monthly budgets.")
                 .setStyle(R.style.CustomShowcaseTheme)
                 .hideOnTouchOutside()
                 .build();
@@ -210,19 +221,24 @@ public class MainActivity extends AppCompatActivity {
                     case 1:
                         showcase.setTarget(new ViewTarget(R.id.toggle_parent, thisActivity));
                         showcase.setContentTitle("Select Time Range");
-                        showcase.setContentText("Click the buttons or swipe the screen to switch between daily, weekly and monthly expense charts.");
+                        showcase.setContentText("Tap the buttons or swipe the screen to switch between daily, weekly and monthly expense charts.");
                         break;
                     case 2:
                         showcase.setTarget(new ViewTarget(R.id.dragView, thisActivity));
                         showcase.setContentTitle("Add an expense");
-                        showcase.setContentText("Click or drag the bottom bar upwards to input a new expense.");
-                        slider.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                        showcase.setContentText("Tap or drag the bottom bar upwards to input a new expense.");
                         break;
                     case 3:
-                        showcase.setTarget(new ViewTarget(R.id.exp_fields, thisActivity));
-                        showcase.setContentTitle("Input the expense amount");
-                        showcase.setContentText("How much did you spend?");
-                        break;
+                        try {
+                            slider.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                            Thread.sleep(200);
+                            showcase.setTarget(new ViewTarget(R.id.exp_fields, thisActivity));
+                            showcase.setContentTitle("Input the expense amount");
+                            showcase.setContentText("How much did you spend?");
+                            break;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     case 4:
                         showcase.setTarget(new ViewTarget(R.id.desc_fields, thisActivity));
                         showcase.setContentTitle("Input the expense description");
@@ -244,12 +260,19 @@ public class MainActivity extends AppCompatActivity {
                             Thread.sleep(200);
                             showcase.setTarget(new ViewTarget(R.id.vpPager, thisActivity));
                             showcase.setContentTitle("View/delete expenses of each type");
-                            showcase.setContentText("After adding some expenses, you can click each element on the chart to view them.");
+                            showcase.setContentText("After adding some expenses, you can tap each element on the chart to view them.");
+                            showcase.forceTextPosition(ShowcaseView.ABOVE_SHOWCASE);
                             showcase.setButtonText("Done");
                             break;
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                    case 8:
+                        showcase.setTarget(new ViewTarget(R.id.popupmenu, thisActivity));
+                        showcase.setContentTitle("Menu");
+                        showcase.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
+                        showcase.setContentText("Tap here to view this guide again, or view a list of each expense type.");
+                        break;
                     default:
                         showcase.hide();
                         showcase = null;
