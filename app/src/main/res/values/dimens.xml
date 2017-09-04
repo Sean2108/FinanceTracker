@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="showcase_radius">130dp</dimen>
+    <dimen name="showcase_radius_inner">132dp</dimen>
+    <dimen name="showcase_radius_outer">164dp</dimen>
+
+    <dimen name="showcase_radius_material">130dp</dimen>
+
+</resources>

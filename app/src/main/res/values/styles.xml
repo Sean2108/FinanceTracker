@@ -22,4 +22,10 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="CustomShowcaseTheme" parent="ShowcaseView">
+        <item name="sv_backgroundColor">#bf1249d9</item>
+        <item name="sv_showcaseColor">#25467A</item>
+        <item name="sv_buttonText">Next</item>
+    </style>
+
 </resources>
