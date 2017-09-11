@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences settings = this.getSharedPreferences(PREFS_NAME, 0);
         if (!(settings.contains("daily_budget") || settings.contains("weekly_budget") || settings.contains("monthly_budget"))) {
-//            createBudgetDialog();
             showHelp();
+//            createBudgetDialog();
         }
 
         viewPager = (ViewPager)findViewById(R.id.vpPager);
@@ -151,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
                 Expenditure exp = new Expenditure(1, exp_cost, selectedType, desc, date);
                 db.addExp(exp);
                 Toast.makeText(this, "Expenditure added", Toast.LENGTH_SHORT).show();
-                startActivity(getIntent());
                 finish();
+                startActivity(getIntent());
             }
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Expenditure cannot be empty!", Toast.LENGTH_SHORT).show();
@@ -187,8 +187,8 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         Intent intent = getIntent();
         intent.putExtra("currentView", viewPager.getCurrentItem());
-        startActivity(intent);
         finish();
+        startActivity(intent);
     }
 
     @Override

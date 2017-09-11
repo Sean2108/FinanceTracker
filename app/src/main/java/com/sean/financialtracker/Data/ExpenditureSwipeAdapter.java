@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.media.Image;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,12 @@ public class ExpenditureSwipeAdapter extends ArrayAdapter<Expenditure> {
 
     private final LayoutInflater mInflater;
     private final ViewBinderHelper binderHelper;
-    NumberFormat formatter;
+    private NumberFormat formatter;
+    private OnDataChangeListener mOnDataChangeListener;
+
+    public void setOnDataChangeListener(OnDataChangeListener onDataChangeListener){
+        mOnDataChangeListener = onDataChangeListener;
+    }
 
     public ExpenditureSwipeAdapter(Context context, List<Expenditure> objects) {
         super(context, R.layout.item_expenditure, objects);
@@ -55,7 +61,8 @@ public class ExpenditureSwipeAdapter extends ArrayAdapter<Expenditure> {
                 holder.price = (TextView) convertView.findViewById(R.id.price);
                 holder.date = (TextView) convertView.findViewById(R.id.submit_date);
                 holder.delete = (ImageButton) convertView.findViewById(R.id.delete);
-                holder.swipeLayout = (SwipeRevealLayout) convertView.findViewById(R.id.swipe);
+                holder.swipeLayout = (SwipeRevealLayout) convertView.findViewById(R.id.swipe_view);
+                convertView.setTag(holder);
             }
             else {
                 holder = (ViewHolder) convertView.getTag();
@@ -85,6 +92,9 @@ public class ExpenditureSwipeAdapter extends ArrayAdapter<Expenditure> {
                                 Toast.makeText(getContext(), "Expenditure deleted!", Toast.LENGTH_SHORT).show();
                                 remove(expenditure);
                                 notifyDataSetChanged();
+                                if(mOnDataChangeListener != null){
+                                    mOnDataChangeListener.onDataChanged();
+                                }
                             }
                         });
 
@@ -114,5 +124,9 @@ public class ExpenditureSwipeAdapter extends ArrayAdapter<Expenditure> {
         TextView date;
         ImageButton delete;
         SwipeRevealLayout swipeLayout;
+    }
+
+    public interface OnDataChangeListener{
+        public void onDataChanged();
     }
 }

@@ -26,7 +26,7 @@ public class ListExpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_exp);
         db = new DBHandlerImpl(this);
         formatter = NumberFormat.getCurrencyInstance();
-        String label = getIntent().getStringExtra("EXP_TYPE");
+        final String label = getIntent().getStringExtra("EXP_TYPE");
 
         ((TextView) findViewById(R.id.header)).setText("Expenses on: " + label);
 
@@ -37,6 +37,12 @@ public class ListExpActivity extends AppCompatActivity {
         adapter = new ExpenditureSwipeAdapter(this, expList);
         ListView listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(adapter);
+
+        adapter.setOnDataChangeListener(new ExpenditureSwipeAdapter.OnDataChangeListener(){
+            public void onDataChanged(){
+                changeExpTotal(label);
+            }
+        });
     }
 
     private String checkRecordsPlural(int expCount, float exp, String range) {
