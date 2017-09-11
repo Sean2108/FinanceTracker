@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:mode="same_level"
     app:dragEdge="right"
-    android:id="@+id/swipe">
+    android:id="@+id/swipe_view">
 
     <LinearLayout android:id="@+id/layout_back"
         android:layout_height="50dp"

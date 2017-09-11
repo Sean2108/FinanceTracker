@@ -7,8 +7,8 @@ android {
         applicationId "com.sean.financialtracker"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 101
-        versionName "1.01"
+        versionCode 103
+        versionName "1.03"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
