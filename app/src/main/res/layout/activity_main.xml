@@ -221,9 +221,10 @@
                         android:id="@+id/food_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@drawable/food"
-                        android:text="Food"
-                        android:textSize="0sp"
+                        android:drawableTop="@drawable/food"
+                        android:text=" Food"
+                        android:textSize="10sp"
+                        android:button="@null"
                         android:background="@drawable/radio_selector"/>
 
                     <Space
@@ -236,9 +237,10 @@
                         android:id="@+id/transport_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@drawable/transport"
+                        android:drawableTop="@drawable/transport"
                         android:text="Transport"
-                        android:textSize="0sp"
+                        android:textSize="10sp"
+                        android:button="@null"
                         android:background="@drawable/radio_selector"/>
 
                     <Space
@@ -251,9 +253,10 @@
                         android:id="@+id/entertainment_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@drawable/entertainment"
+                        android:drawableTop="@drawable/entertainment"
                         android:text="Entertainment"
-                        android:textSize="0sp"
+                        android:textSize="10sp"
+                        android:button="@null"
                         android:background="@drawable/radio_selector"/>
 
                     <Space
@@ -266,9 +269,10 @@
                         android:id="@+id/sub_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@drawable/subscription"
+                        android:drawableTop="@drawable/subscription"
                         android:text="Subscription"
-                        android:textSize="0sp"
+                        android:textSize="10sp"
+                        android:button="@null"
                         android:background="@drawable/radio_selector"/>
 
                     <Space
@@ -281,9 +285,10 @@
                         android:id="@+id/others_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@drawable/others"
+                        android:drawableTop="@drawable/others"
                         android:text="Others"
-                        android:textSize="0sp"
+                        android:textSize="10sp"
+                        android:button="@null"
                         android:background="@drawable/radio_selector"/>
 
                     <Space
