@@ -1,8 +1,8 @@
 package com.sean.financialtracker.Data;
 
 import android.app.Activity;
-import android.graphics.BitmapFactory;
-import android.support.v4.content.ContextCompat;
+
+import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.data.PieEntry;
 import com.sean.financialtracker.R;

@@ -5,7 +5,7 @@
     tools:context="com.sean.financialtracker.Activities.MainActivity"
     android:gravity="center_horizontal">
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/budget_button"
         android:layout_centerInParent="true"
         android:layout_width="135dp"
