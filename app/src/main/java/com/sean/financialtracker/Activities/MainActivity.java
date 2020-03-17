@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = this.getSharedPreferences(PREFS_NAME, 0);
         if (!(settings.contains("daily_budget") || settings.contains("weekly_budget") || settings.contains("monthly_budget"))) {
             showHelp();
-//            createBudgetDialog();
         }
 
         viewPager = (ViewPager)findViewById(R.id.vpPager);

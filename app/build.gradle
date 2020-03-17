@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.sean.financialtracker"
         minSdkVersion 15
@@ -34,6 +34,9 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.github.amlcurran.showcaseview:library:5.4.3'
-    testImplementation 'junit:junit:4.12'
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.0'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
 }

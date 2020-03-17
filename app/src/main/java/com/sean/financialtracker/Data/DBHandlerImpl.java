@@ -109,7 +109,7 @@ public class DBHandlerImpl extends SQLiteOpenHelper implements DBHandler {
 
     @Override
     public int getCategoryExpCount(String type, String queryDateRange) {
-        String countQuery = "";
+        String countQuery;
         switch(queryDateRange) {
             case "daily":
                 countQuery = "SELECT * FROM " + TABLE_FINANCES + " WHERE " + KEY_TYPE + " = \'" + type + "\' AND date(" + KEY_DATE + ") = date('now', 'localtime')";
@@ -163,7 +163,7 @@ public class DBHandlerImpl extends SQLiteOpenHelper implements DBHandler {
 
     @Override
     public float getCategoryExpSum(String type, String queryDateRange) {
-        String countQuery = "";
+        String countQuery;
         switch(queryDateRange) {
             case "daily":
                 countQuery = "SELECT SUM(" + KEY_COST + ") FROM " + TABLE_FINANCES + " WHERE " + KEY_TYPE + " = \'" + type + "\' AND date(" + KEY_DATE + ") = date('now', 'localtime')";
