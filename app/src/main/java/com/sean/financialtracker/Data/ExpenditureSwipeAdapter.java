@@ -19,6 +19,7 @@ import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.sean.financialtracker.R;
 
 import java.text.NumberFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -73,7 +74,7 @@ public class ExpenditureSwipeAdapter extends ArrayAdapter<Expenditure> {
             binderHelper.bind(holder.swipeLayout, String.valueOf(expenditure.getId()));
             holder.desc.setText(expenditure.getDesc());
             holder.price.setText(formatter.format(expenditure.getCost()));
-            holder.date.setText(expenditure.getDateReadable());
+            holder.date.setText(expenditure.getDateReadable(new Date()));
         }
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override

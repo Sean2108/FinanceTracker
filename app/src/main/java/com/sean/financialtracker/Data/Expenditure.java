@@ -48,20 +48,19 @@ public class Expenditure {
         return date;
     }
 
-    public String getDateReadable() {
+    public String getDateReadable(Date now) {
         String resultDate = "";
         try {
             Date formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(date);
-            Date now = new Date();
             long millisSinceExp = now.getTime() - formattedDate.getTime();
             long minSinceExp = TimeUnit.MILLISECONDS.toMinutes(millisSinceExp);
             long hoursSinceExp = TimeUnit.MILLISECONDS.toHours(millisSinceExp);
             if (minSinceExp < 60l) {
-                if (minSinceExp < 2) resultDate = String.valueOf(minSinceExp) + " minute ago";
+                if (minSinceExp == 1) resultDate = String.valueOf(minSinceExp) + " minute ago";
                 else resultDate = String.valueOf(minSinceExp) + " minutes ago";
             }
             else if (hoursSinceExp < 24l) {
-                if (hoursSinceExp < 2) resultDate = String.valueOf(hoursSinceExp) + " hour ago";
+                if (hoursSinceExp == 1) resultDate = String.valueOf(hoursSinceExp) + " hour ago";
                 else resultDate = String.valueOf(hoursSinceExp) + " hours ago";
             }
             else resultDate = new SimpleDateFormat("dd MMM yyyy HH:mm").format(formattedDate);
