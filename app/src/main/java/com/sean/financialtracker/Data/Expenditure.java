@@ -5,18 +5,29 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.Nullable;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 /**
  * Created by sean on 27/8/17.
  */
 
+@Entity(tableName = "tracker")
 public class Expenditure {
-    private int id;
+    @PrimaryKey(autoGenerate = true)
+    private Integer id;
+    @ColumnInfo(name = "cost")
     private float cost;
+    @ColumnInfo(name = "exp_type")
     private String type;
+    @ColumnInfo(name = "description")
     private String desc;
+    @ColumnInfo(name = "exp_date")
     private String date;
 
-    public Expenditure(int id, float cost, String type, String desc, String date) {
+    public Expenditure(Integer id, float cost, String type, String desc, String date) {
         this.id = id;
         this.cost = cost;
         this.type = type;
@@ -24,13 +35,7 @@ public class Expenditure {
         this.date = date;
     }
 
-    public Expenditure() {
-        this.type = "Others";
-        this.desc = "";
-        this.date = "";
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -74,17 +79,12 @@ public class Expenditure {
         this.id = id;
     }
 
-    public void setCost(float cost) { this.cost = cost; }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof Expenditure)) {
+            return false;
+        }
+        Expenditure other = (Expenditure) obj;
+        return super.equals(obj) && id == other.id && cost == other.cost && type == other.type && desc == other.desc && date == other.date;
     }
 }

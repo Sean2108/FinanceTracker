@@ -37,57 +37,13 @@ public class ExpenditureSum {
         return remainingBudget;
     }
 
-    public void setRemainingBudget(float remainingBudget) {
-        this.remainingBudget = remainingBudget;
-    }
-
-    public float getFoodExp() {
-        return foodExp;
-    }
-
-    public void setFoodExp(float foodExp) {
-        this.foodExp = foodExp;
-    }
-
-    public float getTransportExp() {
-        return transportExp;
-    }
-
-    public void setTransportExp(float transportExp) {
-        this.transportExp = transportExp;
-    }
-
-    public float getEntertainmentExp() {
-        return entertainmentExp;
-    }
-
-    public void setEntertainmentExp(float entertainmentExp) {
-        this.entertainmentExp = entertainmentExp;
-    }
-
-    public float getSubscriptionExp() {
-        return subscriptionExp;
-    }
-
-    public void setSubscriptionExp(float subscriptionExp) {
-        this.subscriptionExp = subscriptionExp;
-    }
-
-    public float getOthersExp() {
-        return othersExp;
-    }
-
-    public void setOthersExp(float othersExp) {
-        this.othersExp = othersExp;
-    }
-
     public List<PieEntry> getPieEntries() {
         List<PieEntry> entries = new ArrayList<PieEntry>();
-        if (foodExp != 0f) entries.add(new PieEntry(foodExp, "Food", ContextCompat.getDrawable(thisActivity.getApplicationContext(),R.drawable.food)));
-        if (transportExp != 0f) entries.add(new PieEntry(transportExp, "Transport", ContextCompat.getDrawable(thisActivity.getApplicationContext(),R.drawable.transport)));
-        if (entertainmentExp != 0f) entries.add(new PieEntry(entertainmentExp, "Entertainment", ContextCompat.getDrawable(thisActivity.getApplicationContext(),R.drawable.entertainment)));
-        if (subscriptionExp != 0f) entries.add(new PieEntry(subscriptionExp, "Subscription", ContextCompat.getDrawable(thisActivity.getApplicationContext(),R.drawable.subscription)));
-        if (othersExp != 0f) entries.add(new PieEntry(othersExp, "Others", ContextCompat.getDrawable(thisActivity.getApplicationContext(),R.drawable.others)));
+        if (foodExp != 0f) entries.add(new PieEntry(foodExp, ExpType.Food.name(), ContextCompat.getDrawable(thisActivity.getApplicationContext(),R.drawable.food)));
+        if (transportExp != 0f) entries.add(new PieEntry(transportExp, ExpType.Transport.name(), ContextCompat.getDrawable(thisActivity.getApplicationContext(),R.drawable.transport)));
+        if (entertainmentExp != 0f) entries.add(new PieEntry(entertainmentExp, ExpType.Entertainment.name(), ContextCompat.getDrawable(thisActivity.getApplicationContext(),R.drawable.entertainment)));
+        if (subscriptionExp != 0f) entries.add(new PieEntry(subscriptionExp, ExpType.Subscription.name(), ContextCompat.getDrawable(thisActivity.getApplicationContext(),R.drawable.subscription)));
+        if (othersExp != 0f) entries.add(new PieEntry(othersExp, ExpType.Others.name(), ContextCompat.getDrawable(thisActivity.getApplicationContext(),R.drawable.others)));
         return entries;
     }
 

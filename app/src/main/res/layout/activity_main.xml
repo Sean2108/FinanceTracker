@@ -222,7 +222,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableTop="@drawable/food"
-                        android:text=" Food"
+                        android:text="Food"
                         android:textSize="10sp"
                         android:button="@null"
                         android:background="@drawable/radio_selector"/>

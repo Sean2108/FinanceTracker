@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sean.financialtracker.App;
 import com.sean.financialtracker.Data.DBHandler;
 import com.sean.financialtracker.Data.DBHandlerImpl;
 import com.sean.financialtracker.Data.Expenditure;
@@ -40,7 +41,7 @@ public class ListExpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_exp);
-        db = new DBHandlerImpl(this);
+        db = ((App) getApplicationContext()).getDbHandler();
         formatListExpUtils = new FormatListExpUtils(db);
         final String label = getIntent().getStringExtra("EXP_TYPE");
 
@@ -50,7 +51,7 @@ public class ListExpActivity extends AppCompatActivity {
 
         List<Expenditure> expList = db.getCategoryExp(label);
 
-        adapter = new ExpenditureSwipeAdapter(this, expList);
+        adapter = new ExpenditureSwipeAdapter(this, expList, db);
         ListView listView = findViewById(R.id.listview);
         listView.setAdapter(adapter);
 

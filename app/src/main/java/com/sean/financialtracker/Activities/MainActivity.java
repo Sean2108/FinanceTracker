@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.sean.financialtracker.App;
 import com.sean.financialtracker.Data.DBHandler;
 import com.sean.financialtracker.Data.DBHandlerImpl;
 import com.sean.financialtracker.Data.Expenditure;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ((EditText)findViewById(R.id.exp_text)).setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
 
-        db = new DBHandlerImpl(this);
+        db = ((App) getApplicationContext()).getDbHandler();
 
         slider = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
@@ -145,9 +146,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (exp_cost == 0f) Toast.makeText(this, "Expenditure cannot be zero!", Toast.LENGTH_SHORT).show();
             else if (desc.equals("")) Toast.makeText(this, "Description cannot be empty!", Toast.LENGTH_SHORT).show();
-            else if (desc.equals("")) Toast.makeText(this, "Description cannot be empty!", Toast.LENGTH_SHORT).show();
             else {
-                Expenditure exp = new Expenditure(1, exp_cost, selectedType, desc, date);
+                Expenditure exp = new Expenditure(null, exp_cost, selectedType, desc, date);
                 db.addExp(exp);
                 Toast.makeText(this, "Expenditure added", Toast.LENGTH_SHORT).show();
                 finish();

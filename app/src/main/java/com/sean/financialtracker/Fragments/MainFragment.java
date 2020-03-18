@@ -18,8 +18,10 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.sean.financialtracker.Activities.ListExpActivity;
+import com.sean.financialtracker.App;
 import com.sean.financialtracker.Data.DBHandler;
 import com.sean.financialtracker.Data.DBHandlerImpl;
+import com.sean.financialtracker.Data.ExpType;
 import com.sean.financialtracker.Data.ExpenditureSum;
 import com.sean.financialtracker.R;
 
@@ -55,7 +57,7 @@ public class MainFragment extends Fragment {
         budget = settings.getInt(timeRangeStr + "_budget", 1000);
 
         //get sum of each expenditure type from DB
-        db = new DBHandlerImpl(getActivity());
+        db = ((App) getActivity().getApplicationContext()).getDbHandler();
 //        db.deleteAllExp();
 
         ExpenditureSum expSum = getExpenditures(db, budget, timeRangeStr);
@@ -69,10 +71,6 @@ public class MainFragment extends Fragment {
         PieDataSet set = new PieDataSet(expSum.getPieEntries(), "");
         set.setDrawIcons(true);
         set.setDrawValues(false);
-//        set.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
-//        set.setValueTextSize(10f);
-//        set.setIconsOffset(MPPointF.getInstance(15f, 0f));
-//        set.setValueLineColor(Color.TRANSPARENT);
         set.setColors(new int[] {  R.color.color1, R.color.color2, R.color.color3, R.color.color4, R.color.color5, R.color.color6 }, context);
         PieData data = new PieData(set);
         PieChart chart = (PieChart) rootView.findViewById(R.id.chart);
@@ -112,11 +110,11 @@ public class MainFragment extends Fragment {
     }
 
     private ExpenditureSum getExpenditures(DBHandler db, int budget, String timeRangeStr) {
-        float foodExp = db.getCategoryExpSum("Food", timeRangeStr);
-        float transportExp = db.getCategoryExpSum("Transport", timeRangeStr);
-        float entertainmentExp = db.getCategoryExpSum("Entertainment", timeRangeStr);
-        float subExp = db.getCategoryExpSum("Subscription", timeRangeStr);
-        float othersExp = db.getCategoryExpSum("Others", timeRangeStr);
+        float foodExp = db.getCategoryExpSum(ExpType.Food.name(), timeRangeStr);
+        float transportExp = db.getCategoryExpSum(ExpType.Transport.name(), timeRangeStr);
+        float entertainmentExp = db.getCategoryExpSum(ExpType.Entertainment.name(), timeRangeStr);
+        float subExp = db.getCategoryExpSum(ExpType.Subscription.name(), timeRangeStr);
+        float othersExp = db.getCategoryExpSum(ExpType.Others.name(), timeRangeStr);
 
         float remainingBudget = (float)budget - foodExp - transportExp - entertainmentExp - subExp - othersExp;
         return new ExpenditureSum(remainingBudget, foodExp, transportExp, entertainmentExp, subExp, othersExp, getActivity());

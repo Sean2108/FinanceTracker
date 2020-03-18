@@ -32,16 +32,18 @@ public class ExpenditureSwipeAdapter extends ArrayAdapter<Expenditure> {
     private final ViewBinderHelper binderHelper;
     private NumberFormat formatter;
     private OnDataChangeListener mOnDataChangeListener;
+    private DBHandler db;
 
     public void setOnDataChangeListener(OnDataChangeListener onDataChangeListener){
         mOnDataChangeListener = onDataChangeListener;
     }
 
-    public ExpenditureSwipeAdapter(Context context, List<Expenditure> objects) {
+    public ExpenditureSwipeAdapter(Context context, List<Expenditure> objects, DBHandler db) {
         super(context, R.layout.item_expenditure, objects);
         mInflater = LayoutInflater.from(context);
         binderHelper = new ViewBinderHelper();
         formatter = NumberFormat.getCurrencyInstance();
+        this.db = db;
 
         // uncomment if you want to open only one row at a time
         binderHelper.setOpenOnlyOne(true);
@@ -87,7 +89,6 @@ public class ExpenditureSwipeAdapter extends ArrayAdapter<Expenditure> {
                         "Confirm",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                DBHandler db = new DBHandlerImpl(getContext());
                                 db.deleteExp(expenditure);
                                 Toast.makeText(getContext(), "Expenditure deleted!", Toast.LENGTH_SHORT).show();
                                 remove(expenditure);
