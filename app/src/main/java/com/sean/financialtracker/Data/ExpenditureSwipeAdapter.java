@@ -3,9 +3,6 @@ package com.sean.financialtracker.Data;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-
-import androidx.appcompat.app.AlertDialog;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +18,8 @@ import com.sean.financialtracker.R;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
+
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * Created by sean on 29/8/17.
@@ -59,11 +58,11 @@ public class ExpenditureSwipeAdapter extends ArrayAdapter<Expenditure> {
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_expenditure, parent, false);
                 holder = new ViewHolder();
-                holder.desc = (TextView) convertView.findViewById(R.id.desc);
-                holder.price = (TextView) convertView.findViewById(R.id.price);
-                holder.date = (TextView) convertView.findViewById(R.id.submit_date);
-                holder.delete = (ImageButton) convertView.findViewById(R.id.delete);
-                holder.swipeLayout = (SwipeRevealLayout) convertView.findViewById(R.id.swipe_view);
+                holder.desc = convertView.findViewById(R.id.desc);
+                holder.price = convertView.findViewById(R.id.price);
+                holder.date = convertView.findViewById(R.id.submit_date);
+                holder.delete = convertView.findViewById(R.id.delete);
+                holder.swipeLayout = convertView.findViewById(R.id.swipe_view);
                 convertView.setTag(holder);
             }
             else {
@@ -128,6 +127,6 @@ public class ExpenditureSwipeAdapter extends ArrayAdapter<Expenditure> {
     }
 
     public interface OnDataChangeListener{
-        public void onDataChanged();
+        void onDataChanged();
     }
 }

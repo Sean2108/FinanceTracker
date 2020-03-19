@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.sean.financialtracker.App;
 import com.sean.financialtracker.Data.DBHandler;
-import com.sean.financialtracker.Data.DBHandlerImpl;
 import com.sean.financialtracker.Data.Expenditure;
 import com.sean.financialtracker.Data.ExpenditureSwipeAdapter;
 import com.sean.financialtracker.R;

@@ -4,13 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuPopupHelper;
-import androidx.appcompat.widget.PopupMenu;
 import android.text.InputFilter;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +19,6 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.sean.financialtracker.App;
 import com.sean.financialtracker.Data.DBHandler;
-import com.sean.financialtracker.Data.DBHandlerImpl;
 import com.sean.financialtracker.Data.Expenditure;
 import com.sean.financialtracker.Fragments.FragmentAdapter;
 import com.sean.financialtracker.R;
@@ -35,6 +28,12 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuPopupHelper;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,22 +52,22 @@ public class MainActivity extends AppCompatActivity {
 
         db = ((App) getApplicationContext()).getDbHandler();
 
-        slider = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        slider = findViewById(R.id.sliding_layout);
 
         SharedPreferences settings = this.getSharedPreferences(PREFS_NAME, 0);
         if (!(settings.contains("daily_budget") || settings.contains("weekly_budget") || settings.contains("monthly_budget"))) {
             showHelp();
         }
 
-        viewPager = (ViewPager)findViewById(R.id.vpPager);
+        viewPager = findViewById(R.id.vpPager);
         viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
 
         if (getIntent().getExtras() != null) viewPager.setCurrentItem(getIntent().getIntExtra("currentView", 0));
         else viewPager.setCurrentItem(0);
 
-        Button dailyToggle = (Button) findViewById(R.id.daily_toggle);
-        Button weeklyToggle = (Button) findViewById(R.id.weekly_toggle);
-        Button monthlyToggle = (Button) findViewById(R.id.monthly_toggle);
+        Button dailyToggle = findViewById(R.id.daily_toggle);
+        Button weeklyToggle = findViewById(R.id.weekly_toggle);
+        Button monthlyToggle = findViewById(R.id.monthly_toggle);
 
         final Button[] buttonArr = {dailyToggle, weeklyToggle, monthlyToggle};
         buttonArr[viewPager.getCurrentItem()].setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final ImageButton popupMenu = (ImageButton) findViewById(R.id.popupmenu);
+        final ImageButton popupMenu = findViewById(R.id.popupmenu);
         popupMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Category is not selected!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            RadioButton selectedTypeButton = (RadioButton) findViewById(checkedButtonId);
+            RadioButton selectedTypeButton = findViewById(checkedButtonId);
             String selectedType = selectedTypeButton.getText().toString();
 
             String date = new Timestamp(System.currentTimeMillis()).toString();

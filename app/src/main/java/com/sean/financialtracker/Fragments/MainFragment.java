@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +19,13 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.sean.financialtracker.Activities.ListExpActivity;
 import com.sean.financialtracker.App;
 import com.sean.financialtracker.Data.DBHandler;
-import com.sean.financialtracker.Data.DBHandlerImpl;
 import com.sean.financialtracker.Data.ExpType;
 import com.sean.financialtracker.Data.ExpenditureSum;
 import com.sean.financialtracker.R;
 
 import java.text.NumberFormat;
+
+import androidx.fragment.app.Fragment;
 
 public class MainFragment extends Fragment {
 
@@ -73,7 +73,7 @@ public class MainFragment extends Fragment {
         set.setDrawValues(false);
         set.setColors(new int[] {  R.color.color1, R.color.color2, R.color.color3, R.color.color4, R.color.color5, R.color.color6 }, context);
         PieData data = new PieData(set);
-        PieChart chart = (PieChart) rootView.findViewById(R.id.chart);
+        PieChart chart = rootView.findViewById(R.id.chart);
         if (remainder > 0f) {
             chart.setMaxAngle(((float)budget - remainder) / (float) budget * 360f);
             chart.setCenterText("BALANCE: " + formatter.format(remainder));
